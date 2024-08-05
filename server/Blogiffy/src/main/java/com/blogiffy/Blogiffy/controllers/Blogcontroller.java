@@ -35,6 +35,12 @@ public class Blogcontroller {
         );
     }
 
+        //end point for getting a single blog that can be accessible by both the authorised and unauthorised people
+        @Operation(summary = "Get Single Blog by Id", description = "Api Endpoint for getting a single Blog by Id")
+        @GetMapping("/read-blog/{blogId}")
+        public ResponseEntity<ApiResponse> getBlogById(@PathVariable(value = "blogId") UUID blogId) {
+            return ResponseEntity.ok(new ApiResponse(true, "Blog fetched successfully", blogService.getBlogById(blogId)));
+        }
     //end point for creating a new blog that is only accessible to the publisher
 
     @Operation(summary = "Blog Creation", description = "Api Endpoint for Creating a new Blog")
@@ -45,22 +51,8 @@ public class Blogcontroller {
         return ResponseEntity.ok(new ApiResponse(true, "Blog created successfully", blogService.createBlog(dto)));
     }
 
-    //end point for getting a single blog that can be accessible by both the authorised and unauthorised people
-    @Operation(summary = "Get Single Blog by Id", description = "Api Endpoint for getting a single Blog by Id")
-    @GetMapping("/read-blog/{blogId}")
-    public ResponseEntity<ApiResponse> getBlogById(@PathVariable(value = "blogId") UUID blogId) {
-        return ResponseEntity.ok(new ApiResponse(true, "Blog fetched successfully", blogService.getBlogById(blogId)));
-    }
-    //end point for deleting a single blog that is only accessible by the publisher only
 
-    @Operation(summary = "Delete a single Blog by Id", description = "Api Endpoint for deleting a single Blog by id")
-    @PreAuthorize("hasAuthority('PUBLISHER')")
-    @DeleteMapping("/{blogId}")
-    public ResponseEntity<ApiResponse> deleteBlog(@PathVariable(value = "blogId") UUID blogId) {
-        logger.info("Delete blog");
-        blogService.deleteBlog(blogId);
-        return ResponseEntity.ok(new ApiResponse(true, "Blog deleted successfully", null));
-    }
+
 
     //endpoint for updating a single blog
     @Operation(summary = "Update blog", description = "Api Endpoint for updating a single blog by id")
@@ -70,5 +62,15 @@ public class Blogcontroller {
         logger.info("Update blog");
         return ResponseEntity.ok(new ApiResponse(true, "Blog updated successfully", blogService.updateBlog(blogId, dto)));
     }
+        //end point for deleting a single blog that is only accessible by the publisher only
+
+        @Operation(summary = "Delete a single Blog by Id", description = "Api Endpoint for deleting a single Blog by id")
+        @PreAuthorize("hasAuthority('PUBLISHER')")
+        @DeleteMapping("/{blogId}")
+        public ResponseEntity<ApiResponse> deleteBlog(@PathVariable(value = "blogId") UUID blogId) {
+            logger.info("Delete blog");
+            blogService.deleteBlog(blogId);
+            return ResponseEntity.ok(new ApiResponse(true, "Blog deleted successfully", null));
+        }
 
 }
