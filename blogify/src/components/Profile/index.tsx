@@ -21,7 +21,7 @@ const ProfileBox: FC<ProfileBoxProps> = (props) => {
             <section className="flex flex-col gap-y-[0.5px] text-sm rouned-lg p-1">
 
                 <p className="font-semibold">{props.person?.userName ?? "MNuhire"}</p>
-                <p className="">{props.person?.email ?? "muhireighor123@gmail.com"}</p>
+                <p className="">{props.person?.email }</p>
             </section>
         </div>
 

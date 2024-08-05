@@ -46,6 +46,6 @@ export interface IPaginatedQuery {
     filter?: string;
   }
 export enum ERole{
-    PUBLISHER = 'COMMENTER',
-    READER = 'PUBLISHER'
+    PUBLISHER = 'PUBLISHER',
+    READER = 'COMMENTER'
 }

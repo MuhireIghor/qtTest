@@ -25,6 +25,10 @@ public class BlogSerializer extends JsonSerializer<Blog> {
             gen.writeStringField("id", comment.getId().toString());
             gen.writeStringField("content", comment.getContent());
             gen.writeStringField("authorId", comment.getAuthor().getId().toString());
+
+            gen.writeStringField("authorName", comment.getAuthor().getFirstName().toString()+" "+comment.getAuthor().getLastName().toString());
+            gen.writeStringField("createdAt", comment.getAuthor().getCreatedAt().toString());
+
             gen.writeStringField("blogId", comment.getBlog().getId().toString());
             // Only serialize author ID
             gen.writeEndObject();
@@ -33,6 +37,10 @@ public class BlogSerializer extends JsonSerializer<Blog> {
 
         // Serialize author ID only
         gen.writeStringField("authorId", blog.getAuthor().getId().toString());
+        gen.writeStringField("authorFirstName", blog.getAuthor().getFirstName().toString());
+        gen.writeStringField("authorLastName", blog.getAuthor().getLastName().toString());
+        gen.writeStringField("createdAt", blog.getAuthor().getCreatedAt().toString());
+
 
         gen.writeEndObject();
     }

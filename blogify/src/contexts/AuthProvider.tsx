@@ -28,6 +28,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (user) {
         setUser(user);
       }
+      else{
+        setUser(null);
+        setToken(null);
+      }
     } catch (error) {
       console.log(error);
     } finally {

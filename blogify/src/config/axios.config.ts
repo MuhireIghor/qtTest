@@ -13,10 +13,11 @@ export const api = axios.create({
 export const AuthAPi = axios.create({
   baseURL:
     (import.meta.env.VITE_API_URL as string) ??
-    "http://129.168.0.102:9090/api/v1",
+    "http://192.168.0.102:9090/api/v1",
   headers: {
     Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-  },
+    "Content-Type": "application/json",
+  }
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

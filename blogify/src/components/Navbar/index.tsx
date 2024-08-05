@@ -23,6 +23,12 @@ const NavbarComponent = () => {
         });
     }, [user])
     console.log("here is the user", user);
+    const handleLogin = () => {
+        window.location.href = "/auth/login";
+    }
+    const handleCreateBlog = () => {
+        window.location.href = "/blogs/create";
+    }
 
 
     return (
@@ -31,15 +37,20 @@ const NavbarComponent = () => {
                 <a href="/blogs">
                     <p className="font-montserrat text-white text-xl font-bold">Bloggify</p>
                 </a>
-                <div className="flex gap-x-4 items-center">
-                    {
-                        user?.role == ERole.PUBLISHER && (
+                {Object.keys(user!).length != 0 ? (
+                    <div className="flex gap-x-4 items-center">
+                        {
+                            user?.role == ERole.PUBLISHER && (
 
-                            <CtaButton text="Create" />
-                        )
-                    }
-                    <ProfileBox person={{ userName: `${profile.firstName?.charAt(0)}.${profile.lastName}`, email: profile.email! }} />
-                </div>
+                                <CtaButton onClick={handleCreateBlog} text="Create" />
+                            )
+                        }
+                        <ProfileBox person={{ userName: `${profile.firstName?.charAt(0)}.${profile.lastName}`, email: profile.email! }} />
+                    </div>
+
+                ) : (
+                    <CtaButton onClick={handleLogin} text="Login"  />
+                )}
             </div>
         </section>
     )

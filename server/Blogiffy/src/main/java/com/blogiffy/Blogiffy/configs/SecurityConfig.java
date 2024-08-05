@@ -49,7 +49,12 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         "/api/v1/auth/**",
                                         "/api/v1/users/register/as-publisher",
-                                        "/api/v1/users/register/as-reader",
+                                        "/api/v1/users/register/as-reader"
+
+
+                                ).permitAll()
+
+                                .requestMatchers(
                                         "api/v1/blogs/all-blogs",
                                         "api/v1/blogs/read-blog/*"
 
@@ -77,6 +82,7 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
