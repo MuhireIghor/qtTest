@@ -58,7 +58,7 @@ const LoginPage = () => {
     };
     return (
         <AuthLayout>
-            <div className="scale-90 w-3/4">
+            <div className="scale-90 md:w-3/4">
                 <h2 className="text-xl text-center font-semibold text-primary">Login</h2>
 
                 <form onSubmit={login} className="">

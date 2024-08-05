@@ -89,7 +89,7 @@ const ViewSingleBlogComponent = () => {
 
                     </div>
                 </div>
-                <div className="w-full  min-h-32" >{blog.content}</div>
+                <div className="w-full text-balance  min-h-32 " >{blog.content}</div>
                 <div className="md:w-1/4 flex flex-col gap-2 md:mt-10">
                     <form onSubmit={handleComment} className="flex flex-col gap-3">
                         <label className="font-semibold ">Comment: </label>

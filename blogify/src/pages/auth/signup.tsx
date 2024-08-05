@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AuthLayout from "../../layouts/AuthLayout";
 import { notifications } from "@mantine/notifications";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -17,15 +17,7 @@ const SignupPage = () => {
         password: "",
     });
     const [loading, setLoading] = useState(false);
-    useEffect(() => {
-        setData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-        });
-        setRole(null);
-    }, [])
+
     const signup = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (data.firstName.trim() == "" || data.lastName.trim() == "" || data.email.trim() == "" || data.password.trim() == "") {
@@ -39,6 +31,8 @@ const SignupPage = () => {
         }
         setLoading(true);
         try {
+            console.log("here is the role=====",role);
+            
 
             const res = await api.post(role == ERole.READER.toString() ? "/users/register/as-reader" : "/users/register/as-publisher", data);
             console.log(res);
@@ -66,7 +60,7 @@ const SignupPage = () => {
     };
     return (
         <AuthLayout>
-            <div className="scale-90 w-3/4">
+            <div className="scale-90 md:w-3/4">
 
                 <h2 className="text-xl text-center font-semibold text-primary">Create Account</h2>
                 <form onSubmit={signup} className="">
@@ -80,7 +74,6 @@ const SignupPage = () => {
                         <input
                             autoFocus={false}
                             value={data.firstName}
-                            defaultValue={""}
                             onChange={(e) => setData({ ...data, firstName: e.target.value })}
                             className="outline-none border-none text-black-primary h-[50px] bg-input text-sm px-4 boder border-transparent rounded-[10px] active:border-gray-600"
                             type="text"
@@ -99,7 +92,6 @@ const SignupPage = () => {
                         <input
                             autoFocus={false}
                             value={data.lastName}
-                            defaultValue={""}
                             onChange={(e) => setData({ ...data, lastName: e.target.value })}
                             className="outline-none border-none text-black-primary h-[50px] bg-input text-sm px-4 boder border-transparent rounded-[10px] active:border-gray-600"
                             type="text"

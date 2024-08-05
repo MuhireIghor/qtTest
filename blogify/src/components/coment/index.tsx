@@ -50,7 +50,7 @@ const CommentCardComponent: FC<ICommentCardProps> = (props) => {
             <p>{props.content!}</p>
             {
                 (user?.role == ERole.PUBLISHER|| user?.id == props?.authorId) && (
-                    <Button disabled={isDeletingComment}  loading={isDeletingComment} onClick={()=>handleDelete(props.id)} w={"50%"} color="#ff0000" className=" text-white font-semibold p-2 rounde ">Delete</Button>
+                    <Button disabled={isDeletingComment}  loading={isDeletingComment} onClick={()=>handleDelete(props.id)} w={"50%"} color="#605BFF" className=" text-white font-semibold p-2 rounde ">Delete</Button>
 
                 )
             }

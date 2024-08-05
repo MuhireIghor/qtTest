@@ -1,4 +1,4 @@
-import React from "react";
+import React, { startTransition } from "react";
 import { useAuth } from "@/contexts/AuthProvider";
 import { Input, InputWrapper } from "@mantine/core";
 import { FaArrowRightFromBracket } from "react-icons/fa6";
@@ -6,9 +6,12 @@ import { FaArrowRightFromBracket } from "react-icons/fa6";
 const AccountPage = () => {
     const { user } = useAuth();
     const handleLogout = () => {
-        sessionStorage.removeItem("token");
-        sessionStorage.removeItem("user");
-        window.location.href = "/";
+              // Use startTransition for smoother UI updates
+              startTransition(() => {
+                sessionStorage.removeItem("token");
+                sessionStorage.removeItem("user");
+                window.location.href = "/";
+            });
     }
 
     return (

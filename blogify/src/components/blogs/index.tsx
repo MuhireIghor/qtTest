@@ -8,14 +8,14 @@ const BlogCardComponent: FC<IBlog> = (props) => {
         navigate(`/blogs/${props.id}`);
     }
     return (
-        <section onClick={handleNavigate} className="w-11/12 hover:cursor-pointer bg-white shadow-md border rounded-md flex h-32 p-2 mx-auto lg:mx-0">
+        <section onClick={handleNavigate} className="bg-white rounded-lg shadow-md p-6 border border-transparent hover:border-blue-100 cursor-pointer">
             {/* Image section */}
 
             <div className="flex flex-col w-9/12">
-                <p className="font-semibold">{props.title}</p>
-                <p className="flex gap-x-2"><span className="font-semibold">Written By :</span>{props.authorFirstName}{" "}{props.authorLastName}</p>
-                <p className=" text-md font-semibold">Posted On: <span className="text-gray-400 font-medium">{new Date(props.createdAt.split('.')[0] + 'Z'.toString()).toLocaleDateString()} {new Date(props.createdAt.split('.')[0] + 'Z'.toString()).toLocaleTimeString()}</span></p>
-
+                <p className="font-semibold text-2xl">{props.title}</p>
+                <p className="flex gap-x-2 p-2"><span className="font-semibold">Written By :</span><span className="text-gray-400 font-medium">{props.authorFirstName}{" "}{props.authorLastName}</span></p>
+                <p className="text-gray-600 mt-2 bg-gray-50 p-3 mb-4">{props.content?.toString().substring(0,100)+"..."}</p>
+                <p className=" text-md font-semibold p-2">Posted On: <span className="text-gray-400 font-medium">{new Date(props.createdAt.split('.')[0] + 'Z'.toString()).toLocaleDateString()} {new Date(props.createdAt.split('.')[0] + 'Z'.toString()).toLocaleTimeString()}</span></p>
             </div>
 
         </section>

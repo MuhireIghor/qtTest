@@ -18,9 +18,9 @@ const AuthLayout: FC<AuthLayoutProps> = (props) => {
 
     return (
         <section className="bg-white w-full h-screen flex items-center justify-center">
-            <div className="w-3/4 flex items-center shadow-xl border rounded-lg">
+            <div className="md:w-3/4 flex items-center shadow-2xl border rounded-lg">
             {/* Illustration section */}
-            <div className="basis-1/2 h-full">
+            <div className="basis-1/2 h-full hidden md:block">
                 {
                     isLoginRoute ? (
                         <div className="w-[70%] flex justify-center h-full scale-30">
@@ -33,7 +33,7 @@ const AuthLayout: FC<AuthLayoutProps> = (props) => {
                     )
                 }
             </div>
-            <div className="basis-1/2 ">
+            <div className="md:basis-1/2  ">
             {props.children}
             </div>
 
