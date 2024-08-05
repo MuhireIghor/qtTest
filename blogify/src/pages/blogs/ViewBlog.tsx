@@ -18,8 +18,8 @@ const ViewSingleBlogComponent = () => {
     const {
         data: blog,
         get,
-        loading,
-        error,
+       
+        
     } = useGet<any>(`/blogs/read-blog/${blogId}`, {
         defaultData: [],
     });
