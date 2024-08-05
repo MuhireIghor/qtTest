@@ -1,4 +1,4 @@
-import { IEntity } from "./base.type";
+import { ERole, IEntity } from "./base.type";
 
 export interface IUser extends IEntity {
     firstName: string;
@@ -8,9 +8,8 @@ export interface IUser extends IEntity {
 
 }
 export interface IUserDto {
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
+    firstName: string;    lastName: string;
+    email: string;
+    password: string;
 
 }

@@ -5,9 +5,10 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Button } from "@mantine/core";
 import { IUserDto } from "@/types/user.type";
 import { api, getResError } from "@/config/axios.config";
+import { ERole } from "@/types/base.type";
 
 const SignupPage = () => {
-
+    const [role, setRole] = useState<ERole|null|string>(ERole.READER);
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState<IUserDto>({
         firstName: "",
@@ -23,6 +24,7 @@ const SignupPage = () => {
             email: "",
             password: "",
         });
+        setRole(null);
     }, [])
     const signup = async (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -38,7 +40,7 @@ const SignupPage = () => {
         setLoading(true);
         try {
 
-            const res = await api.post("/users/register/as-reader", data);
+            const res = await api.post(role == ERole.READER.toString() ? "/users/register/as-reader" : "/users/register/as-publisher", data);
             console.log(res);
             notifications.show({
                 title: "Account created ",
@@ -68,7 +70,7 @@ const SignupPage = () => {
 
                 <h2 className="text-xl text-center font-semibold text-primary">Create Account</h2>
                 <form onSubmit={signup} className="">
-                    <div className="field flex flex-col gap-2 mt-3">
+                    <div className="field flex flex-col gap-2 mt-1">
                         <label
                             htmlFor="firstname"
                             className="text-md font-regular text-black"
@@ -87,7 +89,7 @@ const SignupPage = () => {
                             id="firstname"
                         />
                     </div>
-                    <div className="field flex flex-col gap-2 mt-3">
+                    <div className="field flex flex-col gap-2 mt-1">
                         <label
                             htmlFor="lastname"
                             className="text-md font-regular text-black"
@@ -106,7 +108,25 @@ const SignupPage = () => {
                             id="lastname"
                         />
                     </div>
-                    <div className="field flex flex-col gap-2 mt-3">
+                    <div className="field flex flex-col gap-2 mt-1">
+                        <label
+                            htmlFor="role"
+                            className="text-md font-regular text-black"
+                        >
+                            Role
+                        </label>
+                        <select
+                            className="outline-none border-none text-black-primary h-[50px] bg-input text-sm px-4 boder border-transparent rounded-[10px] active:border-gray-600"
+
+                            value={role?.toString()} onChange={(e) => setRole(e.target.value )}>
+                            <option value="null">Select Role</option>
+                            <option value={ERole.PUBLISHER.toString()}>Editor</option>
+                            <option value={ERole.READER.toString()}>Reader</option>
+                        </select>
+
+                    </div>
+
+                    <div className="field flex flex-col gap-2 mt-1">
                         <label
                             htmlFor="email"
                             className="text-md font-regular text-black"
@@ -125,7 +145,7 @@ const SignupPage = () => {
                         />
                     </div>
 
-                    <div className="field flex flex-col gap-2 mt-3 relative">
+                    <div className="field flex flex-col gap-2 mt-1 relative">
                         <label
                             htmlFor="password"
                             className="text-md font-regular text-black-primary"
@@ -174,7 +194,7 @@ const SignupPage = () => {
                             Sign Up                        </Button>
                     </div>
 
-                    <div className="mt-6">
+                    <div className="mt-3">
                         <p className="text-md text-black-primary text-center">
                             Already have account?{" "}
                             <a href="/auth/login" className="text-primary">
