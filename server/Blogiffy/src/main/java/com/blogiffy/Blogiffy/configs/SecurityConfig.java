@@ -31,6 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
+//spring security configuration file
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;

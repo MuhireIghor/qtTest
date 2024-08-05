@@ -17,8 +17,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements IUserService {
 
-
-    private final IUserRepository userRepository;
+    private final IUserRepository userRepository; // Injecting the user repository
 
     @Autowired
     public UserServiceImpl(IUserRepository userRepository) {
@@ -27,48 +26,49 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User register(User user) {
-        validateNewRegistration(user);
+        validateNewRegistration(user); // Validate the new user registration
 
-        return this.userRepository.save(user);
+        return this.userRepository.save(user); // Save the user to the repository and return it
     }
-
 
     @Override
     public boolean isNotUnique(User user) {
-        Optional<User> userOptional = this.userRepository.findByEmail(user.getEmail());
-        return userOptional.isPresent();
+        Optional<User> userOptional = this.userRepository.findByEmail(user.getEmail()); // Check if a user with the given email already exists
+        return userOptional.isPresent(); // Return true if the user exists, false otherwise
     }
 
     @Override
     public void validateNewRegistration(User user) {
         if (isNotUnique(user)) {
-            throw new BadRequestAlertException(String.format("User with email '%s'  already exists", user.getEmail()));
+            throw new BadRequestAlertException(String.format("User with email '%s' already exists", user.getEmail())); // Throw an exception if the email is not unique
         }
     }
 
     @Override
     public User getLoggedInUser() {
+        // Check if the user is anonymous
         if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser") {
             System.out.println(SecurityContextHolder.getContext().getAuthentication());
-            throw new BadRequestAlertException("You are not logged in, try to log in");
+            throw new BadRequestAlertException("You are not logged in, try to log in"); // Throw an exception if the user is not logged in
         }
 
         String email;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        // Get the email of the logged-in user
         if (principal instanceof UserDetails) {
             email = ((UserDetails) principal).getUsername();
         } else {
             email = principal.toString();
         }
 
+        // Find the user by email or throw an exception if not found
         return userRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("User not found with email: " + email));
     }
 
     @Override
     public User getUserById(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("user was not found with id: " + userId
-        ));
-
+        // Find the user by ID or throw an exception if not found
+        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User was not found with id: " + userId));
     }
 }
